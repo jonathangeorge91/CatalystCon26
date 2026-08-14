@@ -1,0 +1,870 @@
+/* =========================================================
+   Catalyst Conference 2026 — Design tokens (from brand doc)
+   ========================================================= */
+:root{
+  --forest:      #1D4238;
+  --cream:       #EAE3D2;
+  --ink:         #20211C;
+  --paper:       #F4EFE3;
+
+  --dawn-mist:   #E4DAC2;
+  --pale-ridge:  #C7C6AD;
+  --sage-fog:    #A7AF95;
+  --mid-hollow:  #7C8B72;
+  --deep-hollow: #4E5E48;
+  --pine-shadow: #2E3E2C;
+
+  --font-display: 'Anton', sans-serif;
+  --font-sub:     'Quicksand', sans-serif;
+  --font-label:   'Oswald', sans-serif;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+
+  --radius: 20px;
+  --radius-sm: 10px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+body{
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sub);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap{
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+a{ color: inherit; }
+
+img{ max-width: 100%; display: block; }
+
+.skip-link{
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--forest);
+  color: var(--paper);
+  padding: 0.75rem 1.25rem;
+  z-index: 200;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+.skip-link:focus{ left: 0; }
+
+:focus-visible{
+  outline: 3px solid var(--forest);
+  outline-offset: 3px;
+}
+
+h1, h2, h3{ margin: 0; }
+
+/* =========================================================
+   Type helpers
+   ========================================================= */
+.eyebrow{
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--deep-hollow);
+  margin: 0 0 0.75rem;
+}
+
+.section-title{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-size: clamp(2rem, 4.2vw, 3.1rem);
+  color: var(--forest);
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+}
+
+.section-intro{
+  max-width: 62ch;
+  font-size: 1.05rem;
+  color: var(--ink);
+  opacity: 0.85;
+}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-label);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  text-decoration: none;
+  padding: 0.95rem 1.75rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  min-height: 44px;
+  transition: transform 220ms var(--ease), background-color 220ms var(--ease), color 220ms var(--ease), border-color 220ms var(--ease);
+}
+.btn:hover{ transform: translateY(-2px); }
+.btn:active{ transform: translateY(0); }
+
+.btn-primary{
+  background: var(--forest);
+  color: var(--paper);
+  border-color: var(--forest);
+}
+.btn-primary:hover{ background: var(--pine-shadow); border-color: var(--pine-shadow); }
+
+.btn-outline{
+  background: transparent;
+  color: var(--forest);
+  border-color: var(--forest);
+}
+.btn-outline:hover{ background: var(--forest); color: var(--paper); }
+
+.btn-small{ padding: 0.6rem 1.2rem; font-size: 0.75rem; }
+.btn-large{ padding: 1.15rem 2.5rem; font-size: 0.95rem; }
+
+/* =========================================================
+   Header / Nav
+   ========================================================= */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(29, 66, 56, 0.12);
+}
+/* Blur lives on a pseudo-element, not the header itself — backdrop-filter
+   on an ancestor turns it into the containing block for any position:fixed
+   descendant (like the mobile nav), which was squeezing the full-screen
+   menu into the header's own ~70px height. */
+.site-header::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(234, 227, 210, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.header-inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+
+.wordmark{
+  text-decoration: none;
+  color: var(--forest);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  line-height: 0.95;
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+}
+.wordmark-line1, .wordmark-line2{ display: block; }
+
+.main-nav{
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+.main-nav a:not(.btn){
+  text-decoration: none;
+  font-family: var(--font-label);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 0.4rem 0.1rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 180ms var(--ease), color 180ms var(--ease);
+}
+.main-nav a:not(.btn):hover{ border-color: var(--forest); }
+
+.nav-toggle{
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav-toggle span{
+  display: block;
+  height: 2px;
+  width: 24px;
+  background: var(--forest);
+  margin: 0 auto;
+  transition: transform 220ms var(--ease), opacity 220ms var(--ease);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero{
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(3rem, 8vw, 6rem);
+  padding-bottom: 0;
+  background: linear-gradient(180deg, var(--paper) 0%, var(--cream) 55%);
+}
+
+.hero-art{
+  position: absolute;
+  inset: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 0;
+}
+.hero-art img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+}
+.hero-art::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--paper) 0%, rgba(244, 239, 227, 0) 20%);
+  pointer-events: none;
+}
+
+.hero-inner{
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding-bottom: clamp(9rem, 22vw, 14rem);
+}
+
+.hero-title{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  color: var(--forest);
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  line-height: 0.94;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.hero-tagline{
+  font-family: var(--font-sub);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  color: var(--deep-hollow);
+  margin: 0 0 2rem;
+}
+
+.hero-verse{
+  max-width: 46ch;
+  margin: 0 auto 2.25rem;
+  padding: 0;
+}
+.hero-verse p{
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink);
+  margin: 0 0 0.5rem;
+}
+.hero-verse cite{
+  font-family: var(--font-label);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--deep-hollow);
+}
+
+.hero-actions{
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+/* CTAs sit over the photo's dark tree line — a transparent forest-on-forest
+   outline button would be nearly unreadable there, so give it a solid chip. */
+.hero-actions .btn-outline{
+  background: rgba(244, 239, 227, 0.94);
+  border-color: rgba(244, 239, 227, 0.94);
+  color: var(--forest);
+}
+.hero-actions .btn-outline:hover{
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--paper);
+}
+
+/* =========================================================
+   Quick facts strip
+   ========================================================= */
+.facts{
+  background: var(--paper);
+  border-top: 1px solid rgba(29, 66, 56, 0.12);
+  border-bottom: 1px solid rgba(29, 66, 56, 0.12);
+}
+.facts-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.fact{
+  padding: var(--space-4) var(--space-2);
+  text-align: center;
+  border-left: 1px solid rgba(29, 66, 56, 0.12);
+}
+.fact:first-child{ border-left: none; }
+.fact-label{
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--deep-hollow);
+  margin: 0 0 0.4rem;
+}
+.fact-value{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  color: var(--forest);
+  margin: 0;
+}
+
+/* =========================================================
+   Ridge dividers (signature motif)
+   ========================================================= */
+.ridge-divider{ line-height: 0; }
+.ridge-divider svg{ width: 100%; height: 40px; display: block; }
+.ridge-divider--into-dark{ margin-bottom: -1px; }
+.ridge-divider--out-of-dark{ margin-top: -1px; }
+
+/* =========================================================
+   Fast band
+   ========================================================= */
+.fast-band{
+  background: var(--forest);
+  color: var(--paper);
+}
+.fast-band-inner{
+  text-align: center;
+  padding: var(--space-2) 0 var(--space-5);
+  max-width: 760px;
+}
+.pill{
+  display: inline-block;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(244, 239, 227, 0.12);
+  border: 1px solid rgba(244, 239, 227, 0.35);
+  border-radius: 999px;
+  padding: 0.5rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.fast-band h2{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  margin-bottom: 1.25rem;
+}
+.fast-copy{
+  font-size: 1.05rem;
+  opacity: 0.92;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   Verse section
+   ========================================================= */
+.verse-section{
+  padding: var(--space-6) 0;
+}
+.verse-inner{
+  max-width: 760px;
+  text-align: center;
+}
+.verse-inner .eyebrow{ text-align: center; }
+.verse-full{
+  font-family: var(--font-sub);
+  font-weight: 500;
+  font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+  line-height: 1.5;
+  color: var(--forest);
+  margin: 0 0 1.5rem;
+  border-top: 1px solid var(--pale-ridge);
+  border-bottom: 1px solid var(--pale-ridge);
+  padding: 2rem 0;
+}
+.verse-note{
+  font-family: var(--font-label);
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  color: var(--deep-hollow);
+}
+
+/* =========================================================
+   Generic section
+   ========================================================= */
+.section{ padding: var(--space-6) 0; }
+.section-alt{ background: var(--paper); }
+
+/* =========================================================
+   Schedule
+   ========================================================= */
+.schedule-tabs{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 2rem 0 2.5rem;
+}
+.tab-btn{
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--forest);
+  border: 2px solid var(--pale-ridge);
+  border-radius: 999px;
+  padding: 0.6rem 1.3rem;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background-color 180ms var(--ease), color 180ms var(--ease), border-color 180ms var(--ease);
+}
+.tab-btn:hover{ border-color: var(--forest); }
+.tab-btn.is-active{
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--paper);
+}
+
+.timeline{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(29, 66, 56, 0.15);
+}
+.timeline li{
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--space-3);
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(29, 66, 56, 0.15);
+}
+.timeline .time{
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: var(--deep-hollow);
+}
+.timeline .event strong{ color: var(--forest); }
+.timeline .event{ font-size: 0.98rem; }
+
+/* =========================================================
+   Speakers — a trail of waypoints, not a card grid.
+   The message arc is a real sequence (Identity → Authority →
+   Role → Future), so it's drawn as a path across the ridge
+   instead of a generic avatar grid.
+   ========================================================= */
+.speaker-trail{
+  list-style: none;
+  margin: 3rem 0 0;
+  padding: 0;
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+}
+.speaker-trail::before{
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 24px;
+  height: 0;
+  border-top: 2px dashed var(--pale-ridge);
+  z-index: 0;
+}
+.speaker-stop{
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stop-marker{
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--stop-color, var(--forest));
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+  border: 4px solid var(--paper);
+}
+.stop-slot{
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--deep-hollow);
+  margin: 0 0 0.35rem;
+}
+.speaker-stop h3{
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--forest);
+  margin-bottom: 0.3rem;
+  padding: 0 0.35rem;
+}
+.stop-msg{ font-size: 0.85rem; margin: 0; opacity: 0.8; padding: 0 0.35rem; }
+
+/* =========================================================
+   Location & lodging
+   ========================================================= */
+.venue-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-top: 2rem;
+}
+.venue-card{
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+}
+.venue-card h3{
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--forest);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.venue-tag{
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--forest);
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+}
+.venue-card p{ margin: 0 0 1.25rem; }
+
+.hotel-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  margin-top: 1.5rem;
+}
+.hotel-card{
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+}
+.hotel-brand{
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--deep-hollow);
+  margin: 0 0 0.4rem;
+}
+.hotel-card h3{
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--forest);
+  margin-bottom: 0.5rem;
+}
+.hotel-rate{
+  font-family: var(--font-display);
+  color: var(--forest);
+  font-size: 1.6rem;
+  margin: 0 0 0.75rem;
+}
+.hotel-rate span{ font-family: var(--font-sub); font-size: 0.85rem; font-weight: 500; color: var(--deep-hollow); }
+.hotel-rate--text{
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--deep-hollow);
+}
+.hotel-addr{ font-size: 0.85rem; margin: 0 0 0.75rem; opacity: 0.85; }
+.hotel-note{ font-size: 0.85rem; margin: 0 0 0.75rem; opacity: 0.75; flex-grow: 1; }
+.hotel-dist{
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--deep-hollow);
+  margin: 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(29, 66, 56, 0.15);
+}
+
+/* =========================================================
+   What to bring
+   ========================================================= */
+.bring-list{
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 2rem;
+}
+.bring-list li{
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(29, 66, 56, 0.15);
+}
+.bring-list li::before{
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mid-hollow);
+  margin-bottom: 0.5rem;
+}
+.bring-list strong{ color: var(--forest); font-family: var(--font-sub); font-weight: 700; }
+.bring-list span{ font-size: 0.9rem; opacity: 0.75; }
+
+/* =========================================================
+   Childcare
+   ========================================================= */
+.childcare-cards{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-top: 1.75rem;
+}
+.childcare-card{
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+}
+.childcare-card h3{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  color: var(--forest);
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+}
+.childcare-card p{ margin: 0; opacity: 0.85; }
+
+/* =========================================================
+   Registration
+   ========================================================= */
+.register-section{ background: var(--paper); }
+
+.pricing-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-top: 2rem;
+}
+.price-card{
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: var(--space-4) var(--space-3);
+  text-align: center;
+}
+.price-card--featured{
+  background: var(--forest);
+  color: var(--paper);
+  transform: scale(1.03);
+}
+.price-tier{
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin: 0 0 0.75rem;
+}
+.price-amount{
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  margin: 0 0 0.5rem;
+}
+.price-card--featured .price-amount{ color: var(--paper); }
+.price-card:not(.price-card--featured) .price-amount{ color: var(--forest); }
+.price-detail{ font-size: 0.9rem; margin: 0; opacity: 0.85; }
+
+.register-cta{
+  text-align: center;
+  margin-top: var(--space-4);
+}
+.register-note{
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer{
+  background: var(--pine-shadow);
+  color: var(--paper);
+  text-align: center;
+  padding: var(--space-5) 0;
+}
+.footer-word{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  margin: 0 0 0.35rem;
+}
+.footer-tagline{
+  font-family: var(--font-sub);
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+  opacity: 0.85;
+}
+.footer-meta{
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+  opacity: 0.75;
+}
+.footer-verse{
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin: 0;
+}
+
+/* =========================================================
+   Scroll reveal
+   ========================================================= */
+.reveal{
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.reveal.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity: 1; transform: none; }
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 1024px){
+  .hotel-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px){
+  .nav-toggle{ display: flex; }
+  .main-nav{
+    position: fixed;
+    inset: 68px 0 0 0;
+    background: var(--cream);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.5rem;
+    gap: 0.25rem;
+    transform: translateX(100%);
+    transition: transform 280ms var(--ease);
+    overflow-y: auto;
+  }
+  .main-nav.is-open{ transform: translateX(0); }
+  .main-nav a:not(.btn){
+    padding: 0.9rem 0.25rem;
+    border-bottom: 1px solid rgba(29,66,56,0.12);
+    font-size: 0.95rem;
+  }
+  .main-nav .btn{ margin-top: 1rem; align-self: flex-start; }
+
+  .facts-grid{ grid-template-columns: 1fr; }
+  .fact{ border-left: none; border-bottom: 1px solid rgba(29,66,56,0.12); }
+  .fact:last-child{ border-bottom: none; }
+
+  .venue-grid, .hotel-grid, .pricing-grid, .bring-list, .childcare-cards{
+    grid-template-columns: 1fr;
+  }
+  .price-card--featured{ transform: none; }
+
+  .timeline li{ grid-template-columns: 1fr; gap: 0.35rem; }
+
+  .speaker-trail{ flex-direction: column; gap: 2rem; }
+  .speaker-trail::before{
+    left: 24px; top: 24px; right: auto; bottom: 24px;
+    height: auto; width: 0;
+    border-top: none;
+    border-left: 2px dashed var(--pale-ridge);
+  }
+  .speaker-stop{ flex-direction: row; text-align: left; align-items: flex-start; gap: 1.1rem; }
+  .stop-marker{ margin-bottom: 0; }
+  .speaker-stop h3, .stop-msg{ padding: 0; }
+}
+
+@media (max-width: 480px){
+  .hero-title{ font-size: clamp(2.6rem, 13vw, 3.5rem); }
+}
